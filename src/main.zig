@@ -1,5 +1,5 @@
 const std = @import("std");
-const pdapi = @import("playdate_api_definitions.zig");
+const pdapi = @import("pdapi");
 
 var g_playdate_image: *pdapi.LCDBitmap = undefined;
 

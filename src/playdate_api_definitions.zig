@@ -1,6 +1,11 @@
 const std = @import("std");
 const builtin = @import("builtin");
 
+comptime {
+    if (@import("builtin").target.os.tag == .freestanding)
+        _ = @import("playdate_hardware_main.zig");
+}
+
 pub const PlaydateAPI = extern struct {
     system: *const PlaydateSys,
     file: *const PlaydateFile,

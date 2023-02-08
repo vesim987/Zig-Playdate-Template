@@ -1,5 +1,4 @@
 const pdapi = @import("playdate_api_definitions.zig");
-const main = @import("main.zig");
 
 comptime {
     asm (
@@ -17,11 +16,11 @@ comptime {
         \\.section .text
         \\.global eventHandler
         \\.global _start
-        \\_start: 
+        \\_start:
         \\    b eventHandler //This is never exectued, but required for the linker to not optimize out the eventHandler function
     );
 }
-export var PD_eventHandler: *const fn (playdate: *pdapi.PlaydateAPI, event: pdapi.PDSystemEvent, arg: u32) callconv(.C) c_int linksection(".capi_handler") = main.eventHandler;
+export var PD_eventHandler: *const fn (playdate: *pdapi.PlaydateAPI, event: pdapi.PDSystemEvent, arg: u32) callconv(.C) c_int linksection(".capi_handler") = @import("root").eventHandler;
 
 //These are required until https://github.com/ziglang/zig/issues/13530 is solved
 //TODO make more efficent. An assembly implementation might be ideal
